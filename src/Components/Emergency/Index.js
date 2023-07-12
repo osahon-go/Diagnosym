@@ -8,6 +8,9 @@ import * as S from "../Style";
 // Styled Components
 import { ListUl, ListLi, LineSubject, LineBody } from "./EmergencyElements";
 
+// images 
+import symbol from "../../images/stetoscope.png"
+
 function Emergency() {
   const { themeConfig } = useSelector((state) => state.themes)
 
@@ -20,6 +23,7 @@ function Emergency() {
     <ThemeProvider theme={themeConfig}>
       <S.Container>
         <S.Wrapper>
+            <S.Stetoscope src={symbol} />
           <S.Return to={"/start"} replace={true}>Go Back</S.Return>
           <ThemeProvider theme={theme}>
             <S.Header>Emergency Check</S.Header>

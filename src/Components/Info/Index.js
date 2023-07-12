@@ -13,6 +13,9 @@ import { Form, Input, Select } from "./InfoElements";
 import { setUserDetails} from "../features/UserSlice";
 import { ThemeProvider } from "styled-components";
 
+// images 
+import symbol from "../../images/stetoscope.png"
+
 function Info() {
   const { themeConfig } = useSelector((state) => state.themes)
   const [name, setName ] = useState(null);
@@ -44,6 +47,7 @@ function Info() {
     <ThemeProvider theme={themeConfig}>
       <S.Container>
         <S.Wrapper>
+          <S.Stetoscope src={symbol}/>
           <S.Return to={"/emergency-check"} replace={true}>Go Back</S.Return>
           <S.Header>Necessary Details</S.Header>
           <S.Statement>

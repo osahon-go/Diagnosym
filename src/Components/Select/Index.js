@@ -14,6 +14,9 @@ import {
 } from "../Emergency/EmergencyElements";
 import { ThemeProvider } from "styled-components";
 
+// images 
+import symbol from "../../images/stetoscope.png"
+
 function Start() {
   const { themeConfig } = useSelector((state) => state.themes)
   return (
@@ -21,6 +24,7 @@ function Start() {
     <ThemeProvider theme={themeConfig}>
       <S.Container>
         <S.Wrapper>
+          <S.Stetoscope src={symbol} />
           <S.Return to={"/start"} replace={true}>Go Back</S.Return>
           <S.Header>Select Body Region</S.Header>
           <S.Statement>

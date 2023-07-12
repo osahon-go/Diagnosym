@@ -11,14 +11,11 @@ function Slide() {
       <SlideBg>
         <BgLeft>
             <br/>
-          <S.Header>Doctor's exam</S.Header><br />
+          <S.Header>Be Empowered</S.Header><br />
           <S.Statement>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat
+          Gone are the days of uncertainty and lengthy wait times for diagnoses. Diagnosym empowers individuals and healthcare professionals alike by offering an accessible and reliable tool for early detection and identification of various diseases. By analyzing an array of symptoms, our system work tirelessly to deliver prompt and precise results.
           </S.Statement>
-          <S.ButtonLink to={"/start"} replace={true}>Start</S.ButtonLink>
+          <S.ButtonLink to={"/start"} replace={true}>Try now</S.ButtonLink>
         </BgLeft>
         <BgRight>
           <SlideSvg src={svg} />

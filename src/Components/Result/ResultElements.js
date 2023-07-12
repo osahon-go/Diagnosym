@@ -8,8 +8,12 @@ export const SubHeading = Styled.p`
 `
 
 export const Restart = Styled.span`
-    margin-left: 480px;
+    margin-left: 470px;
     font-size: 16px;
     color: ${props => props.theme.name === "light" ? "#000" : "#fff"};
     cursor: pointer;
+
+    @media (max-width: 768px){
+        margin-left: 20px;
+    }
 `

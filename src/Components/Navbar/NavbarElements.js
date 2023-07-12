@@ -1,5 +1,6 @@
 import Styled from 'styled-components'
 import * as T from '../Theme'
+import { Link } from 'react-router-dom'
 
 export const NavbarContainer = Styled.div`
     position: relative;
@@ -12,8 +13,20 @@ export const NavbarContainer = Styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    @media (max-width: 768px){
+        padding: 0 30px;
+    }
 `
-export const NavbarLogo = Styled.div``
+export const NavbarLogo = Styled.img`
+    width: 200px;
+    margin-left: -5px;
+
+    @media (max-width: 768px){
+        width: 130px;
+        margin-top: 7px;
+    }
+`
 
 export const NavbarMenu = Styled.ul`
     height: 100%;
@@ -31,9 +44,18 @@ export const NavbarLi = Styled.li`
     &:hover {
         border-bottom: 5px solid ${props => props.theme.name === "light" ? T.bg_dark : T.txt_header};
     }
+
+    @media (max-width: 768px){
+        padding: 0 0;
+    }
 `
-export const NavbarLink = Styled.p`
+export const NavbarLink = Styled(Link)`
+    text-decoration: none;
     line-height: 68px;
     color: ${props => props.theme.name === "light" ? T.txt_dark : T.txt_light};
+
+    @media (max-width: 768px){
+        display: none;
+    }
 `
 export const MobileMenu = Styled.div``

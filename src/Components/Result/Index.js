@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import JsPDF from 'jspdf';
@@ -18,7 +18,11 @@ import { ThemeProvider } from "styled-components";
 import { resetResult } from "../features/ResultSlice";
 import { resetUser } from "../features/UserSlice"
 
+// images 
+import symbol from "../../images/stetoscope.png"
+
 function Result() {
+  const [ firstname, setFirstname ] = useState(null)
   const { themeConfig } = useSelector((state) => state.themes)
   const { result } = useSelector((state) => state.result);
   const { fullname, age, gender, location } = useSelector(
@@ -27,6 +31,17 @@ function Result() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const report = useRef()
+
+  useEffect(()=>{
+    if (fullname){
+      const nameArray = fullname.split(" ")
+      if (nameArray.length > 1){
+        setFirstname(nameArray[0])
+      }else{
+        setFirstname(fullname)
+      }
+    }
+  }, [fullname])
 
   const tableBackground = themeConfig.name === "light" ? "table table-bordered" : "table table-bordered table-dark";
   const tableHeader = themeConfig.name === "light" ? "#f9f9f9" : "#2c3034";
@@ -61,6 +76,7 @@ function Result() {
     <ThemeProvider theme={themeConfig}>
       <S.Container>
         <S.Wrapper ref={report} id="report">
+          <S.Stetoscope src={symbol} />
           <S.Header>Diagnosis</S.Header>
           <S.Statement></S.Statement>
           <SubHeading>Patient Demographics</SubHeading>
@@ -68,7 +84,7 @@ function Result() {
             <tbody>
               <tr>
                 <th style={{ backgroundColor:  tableHeader }}>Name</th>
-                <td>{fullname}</td>
+                <td>{firstname}</td>
                 <th style={{ backgroundColor: tableHeader }}>Age</th>
                 <td>{age}</td>
               </tr>
@@ -105,7 +121,7 @@ function Result() {
                     <td>
                       {
                         probability > 0 ? 
-                        (<>{disease}&nbsp;<span style={{fontSize: "12px", fontWeight: "bold"}}>(Acc: {(probability * 100).toFixed(2)}%)</span></>)
+                        (<>{disease}&nbsp;<span style={{display: "inline-block", fontSize: "12px", fontWeight: "bold"}}>(Acc: {(probability * 100).toFixed(2)}%)</span></>)
                         : "N.A."
                       }
                       {/* {disease_dict[diagnosis[0]]}&nbsp; */}

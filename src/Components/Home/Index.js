@@ -5,6 +5,9 @@ import { ThemeProvider } from "styled-components";
 // Styled
 import * as S from "../Style";
 
+// image
+import symbol from "../../images/stetoscope.png"
+
 function Home() {
   const { themeConfig } = useSelector((state) => state.themes);
 
@@ -13,6 +16,7 @@ function Home() {
       <ThemeProvider theme={themeConfig}>
         <S.Container>
           <S.Wrapper>
+            <S.Stetoscope src={symbol} />
           <S.Return to={"/"} replace={true}>Go Back</S.Return>
             <S.Header>Check Your Symptoms</S.Header>
             <S.Statement>

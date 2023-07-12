@@ -28,6 +28,9 @@ import {
 import { setDiagnosis } from "../features/ResultSlice";
 import { ThemeProvider } from "styled-components";
 
+// images 
+import symbol from "../../images/stetoscope.png"
+
 function Symptoms() {
   const { themeConfig } = useSelector((state) => state.themes)
   const [list, setList] = useState([]);
@@ -103,7 +106,7 @@ function Symptoms() {
   }
 
   const fetchDiagnosis = () => {
-    fetch("https://diagnosym.onrender.com/api/diagnose", {
+    fetch("https://diagnoserve.onrender.com/api/diagnose", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(test),
@@ -131,6 +134,7 @@ function Symptoms() {
     <ThemeProvider theme={themeConfig}>
       <S.Container>
         <S.Wrapper>
+          <S.Stetoscope src={symbol} />
           <S.Return to={"/select-category"} replace={true}>Go Back</S.Return>
           <S.Header>{area}</S.Header>
           <S.Statement>Click to select symptoms.</S.Statement>
