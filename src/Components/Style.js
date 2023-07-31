@@ -4,7 +4,7 @@ import { CgDarkMode } from "react-icons/cg"
 import * as T from "./Theme"
 
 export const ThemeButton = Styled(CgDarkMode)`
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     right: 20px;
     font-size: 20px;
@@ -13,6 +13,7 @@ export const ThemeButton = Styled(CgDarkMode)`
 
     @media (max-width: 768px){
         top: 23px !important;
+        position: absolute;
     }
 `
 export const Stetoscope = Styled.img`
@@ -35,7 +36,7 @@ export const Container = Styled.div`
 
     @media (max-width: 768px){
         position: relative;
-        height: 100vh;
+        height: ${props => props.theme.heightStatus === 1 ? "auto" : props.theme.screenHeight};
         display: inline-block;
     }
 `
@@ -111,5 +112,19 @@ export const Return = Styled(Link)`
     display: inline-block;
     margin-bottom: 20px;
     text-decoration: none;
-    color: ${props => props.theme.name === "light" ? T.txt_dark : T.txt_light};;
+    color: ${props => props.theme.name === "light" ? T.txt_dark : T.txt_light};
+`
+
+export const PolicyLink = Styled(Link)`
+    text-decoration: none;
+    color: ${props => props.theme.name === "light" ? T.txt_dark : T.txt_header};
+    cursor:pointer;
+`
+
+export const PolicyTag = Styled.div`
+    position: "relative";
+    width: 100%;
+    padding: 20px 0; 
+    text-align: center;
+    background-color: ${props => props.theme.name === "light" ? T.bg_light : T.bg_dark};
 `

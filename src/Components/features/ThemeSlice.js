@@ -4,7 +4,9 @@ const INITIAL_STATE = {
     themeConfig: {
         name: "light",
         bg: "#fff",
-        txt: "#000"
+        txt: "#000",
+        heightStatus: null,
+        screenHeight: null
     }
 }
 
@@ -17,6 +19,12 @@ const ThemeSlice = createSlice({
             state.themeConfig.bg = "#000"
             state.themeConfig.txt = "#fff"
         },
+        setHeightStatus : (state, {payload}) => {
+            state.themeConfig.heightStatus = payload
+        },
+        setScreenHeight : (state, {payload}) => {
+            state.screenHeight = payload
+        },
         sepiaMode: (state, payload) => {
 
         },
@@ -24,6 +32,6 @@ const ThemeSlice = createSlice({
     }
 })
 
-export const { darkMode, sepiaMode, defaultMode} = ThemeSlice.actions
+export const { darkMode, setHeightStatus, setScreenHeight, sepiaMode, defaultMode} = ThemeSlice.actions
 
 export default ThemeSlice.reducer

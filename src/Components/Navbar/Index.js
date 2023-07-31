@@ -15,7 +15,7 @@ function Navbar() {
         <NavbarLogo src={themeConfig.name === "light" ? logo : logo_w}></NavbarLogo>
         <NavbarMenu>
             <NavbarLi>
-                <NavbarLink to={"/start"} replace={true}>App</NavbarLink>
+                <NavbarLink to={"/start"} replace={true}>APP</NavbarLink>
             </NavbarLi>
             {/* <NavbarLi>
                 <NavbarLink>About</NavbarLink>

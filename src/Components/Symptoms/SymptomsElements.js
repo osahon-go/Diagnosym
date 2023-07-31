@@ -1,15 +1,25 @@
 import Styled from 'styled-components'
 import { BiRefresh } from 'react-icons/bi'
-import { Button, LinkTag } from '../Style'
+import { Button } from '../Style'
 import * as T from "../Theme"
 
+export const SymptomsMask = Styled.div`
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid ${props => props.theme.name === "light" ? T.bdr_grey : T.bdr_dgrey};
+`
+
 export const SymptomsArea = Styled.div`
+    width: 103%;
+    position: relative;
     max-height: 250px;
-    overflow: scroll;
+    overflow-y: scroll;
     background-color: ${props => props.theme.name === "light" ? T.bg_light : T.txt_dark};
     padding: 15px;
     border-radius: 10px;
-    border: 1px solid ${props => props.theme.name === "light" ? T.bdr_grey : T.bdr_dgrey};
 `
 export const SymptomsPills = Styled.div`
     padding: 5px 10px;
@@ -17,7 +27,7 @@ export const SymptomsPills = Styled.div`
     background-color: ${props => props.theme.name === "light" ? T.txt_light : T.txt_dark};
     border-radius: 10px;
     border: 1px solid ${props => props.theme.name === "light" ? T.bdr_grey : T.bdr_dgrey};
-    transition: padding 0.6s ease;
+    transition: padding 0.35s ease;
     cursor: pointer;
     color: ${props => props.theme.name === "light" ? T.txt_dark : T.txt_light};
 
@@ -27,9 +37,13 @@ export const SymptomsPills = Styled.div`
         color: #fff;
     }
 `
-export const SelectedArea = Styled(SymptomsArea)`
-    position: relative;
+export const SelectedMask = Styled(SymptomsMask)`
     margin-top: 10px;
+`
+
+export const SelectedArea = Styled(SymptomsArea)`
+
+    position: relative;
     transition: all 0.35s ease;
     display: flex;
     flex-direction: row;
@@ -53,6 +67,7 @@ export const SelectedPill = Styled.div`
 `
 
 export const Refresh = Styled(BiRefresh)`
+    position: absolute;
     padding: 5px;
     color: red;
     cursor: pointer;

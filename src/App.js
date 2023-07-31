@@ -9,6 +9,7 @@ import Info from "./Components/Info/Index";
 import Select from "./Components/Select/Index";
 import Symptoms from "./Components/Symptoms/Index";
 import Result from "./Components/Result/Index";
+import Policy from "./Components/Policy/Index";
 import { ThemeButton } from "./Components/Style";
 
 // actions
@@ -37,6 +38,7 @@ function App() {
           <Route path="/select-category" element={<Select />} />
           <Route path="/select-category/:area" element={<Symptoms />} />
           <Route path="/diagnosis" element={<Result />} />
+          <Route path="/policy-statement" element={<Policy />} />
         </Routes>
       </Router>
       <ThemeProvider theme={themeConfig}>

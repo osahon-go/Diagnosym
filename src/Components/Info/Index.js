@@ -1,13 +1,14 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+import { postcodeValidator } from 'postcode-validator';
 
 // General Styling
 import * as S from "../Style";
 
 // Styled Components
-import { Form, Input, Select } from "./InfoElements";
+import { Form, InputLabel, Input, Select, InfoContainer} from "./InfoElements";
 
 // UserSlice actions
 import { setUserDetails} from "../features/UserSlice";
@@ -15,6 +16,9 @@ import { ThemeProvider } from "styled-components";
 
 // images 
 import symbol from "../../images/stetoscope.png"
+
+// setting
+import { PageSetup } from "../Setting";
 
 function Info() {
   const { themeConfig } = useSelector((state) => state.themes)
@@ -24,11 +28,26 @@ function Info() {
   const [location, setLocation] = useState(null);
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const ContainerHeight = useRef()
 
-  const genders = ["Male", "Female", "Others"];
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
+    PageSetup(ContainerHeight)
+  }, [])
+
+  const genders = ["Male", "Female", "Others", "I prefer not to say"];
+
+  document.onkeydown = (btn) =>{
+    if (btn.code === "Tab"){
+      return false
+    }
+  }
 
   const checkForm = () => {
-    if (name == null || age == null || gender == null || location === "What's your gender?"){
+    if (name == null || age == null || location == null || gender === "What's your gender?"){
       alert("All fields are mandatory!")
     }else{
       const values = {
@@ -42,41 +61,74 @@ function Info() {
     }
   }
 
+  const checkAge = (e) => {
+    e.target.style.borderColor = ''
+    if (e.target.value!== ""){
+      if (e.target.value < 7 || e.target.value > 120){
+        setAge(null)
+        e.target.style.borderColor = 'red'
+      }else{
+        setAge(e.target.value)
+        e.target.style.borderColor = ''
+      }
+    }
+  }
+
+  const checkPostcode = (e) => {
+    e.target.style.borderColor = ''
+    if (e.target.value !== ""){
+      if (postcodeValidator(e.target.value,'GB')){
+        setLocation(e.target.value)
+        e.target.style.borderColor = ''
+      }else{
+        setLocation(null)
+        e.target.style.borderColor = 'red'
+      }
+    }
+  }
+
   return (
     <>
     <ThemeProvider theme={themeConfig}>
-      <S.Container>
+      <InfoContainer ref={ContainerHeight}>
         <S.Wrapper>
           <S.Stetoscope src={symbol}/>
           <S.Return to={"/emergency-check"} replace={true}>Go Back</S.Return>
           <S.Header>Necessary Details</S.Header>
           <S.Statement>
-            We need some information from you to help serve you better.
+            We need some information from you to help serve you better. Please note that your information is not stored.
           </S.Statement>
 
           <Form>
+            <InputLabel htmlFor="fullname">What's your fullname?</InputLabel><br />
           <Input
+              id="fullname"
               type="test"
               onChange={(e) => setName(e.target.value)}
-              placeholder="What's your name?"
-            /><br />      
+            /><br />
+
+            <InputLabel htmlFor="age">What is your age?</InputLabel><br /> 
             <Input
+              id="age"
               type="number"
+              inputMode="numeric"
               min={7}
               max={120}
-              onChange={(e) => setAge(e.target.value)}
-              placeholder="How old are you?"
+              onChange={checkAge}
             />
             <br />
+            <InputLabel htmlFor="postcode">What is your Postcode?</InputLabel><br /> 
             <Input
+              id="postcode"
               type="text"
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="Enter Postcode?"
+              onChange={checkPostcode}
             />
             <br />
-            <Select type="text" onChange={(e) => setGender(e.target.value)}>
+
+            <InputLabel htmlFor="gender">What is your gender?</InputLabel><br /> 
+            <Select id="gender" type="text" onChange={(e) => setGender(e.target.value)}>
               <option defaultValue="What's your gender?">
-                What's your gender?
+                --
               </option>
               {genders.map((g, index) => (
                 <option key={index} value={g}>
@@ -89,7 +141,8 @@ function Info() {
             Proceed
           </S.Button>
         </S.Wrapper>
-      </S.Container>
+      </InfoContainer>
+      <S.PolicyTag><S.PolicyLink to="/policy-statement">&#169; 2023 Privacy Statement</S.PolicyLink></S.PolicyTag>
       </ThemeProvider>
     </>
   );

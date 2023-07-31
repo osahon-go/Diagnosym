@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ThemeProvider } from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector} from "react-redux";
 
 // General Styling
 import * as S from "../Style";
@@ -11,8 +11,20 @@ import { ListUl, ListLi, LineSubject, LineBody } from "./EmergencyElements";
 // images 
 import symbol from "../../images/stetoscope.png"
 
+// Settings
+import { PageSetup } from "../Setting";
+
 function Emergency() {
   const { themeConfig } = useSelector((state) => state.themes)
+  const ContainerHeight = useRef()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(()=>{
+    PageSetup(ContainerHeight)
+  },[])
 
   const theme = {
     status: "emergency"
@@ -21,7 +33,7 @@ function Emergency() {
   return (
     <>
     <ThemeProvider theme={themeConfig}>
-      <S.Container>
+      <S.Container ref={ContainerHeight}>
         <S.Wrapper>
             <S.Stetoscope src={symbol} />
           <S.Return to={"/start"} replace={true}>Go Back</S.Return>
@@ -35,7 +47,7 @@ function Emergency() {
             <ListLi>
               <LineSubject>Signs of a stroke </LineSubject>
               <LineBody>
-                Face dropping on one side, can’t hold both arms up, difficulty
+                Face dropping on one side, can't hold both arms up, difficulty
                 speaking. 
               </LineBody>
             </ListLi>
@@ -62,6 +74,7 @@ function Emergency() {
           </S.ButtonLink>
         </S.Wrapper>
       </S.Container>
+      <S.PolicyTag><S.PolicyLink to="/policy-statement">&#169; 2023 Privacy Statement</S.PolicyLink></S.PolicyTag>
       </ThemeProvider>
     </>
   );

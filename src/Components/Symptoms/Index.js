@@ -22,14 +22,20 @@ import {
   SelectedPill,
   Refresh,
   Diagnose,
+  SymptomsMask,
+  SelectedMask,
 } from "./SymptomsElements";
 
 // ResultSlice actions
 import { setDiagnosis } from "../features/ResultSlice";
+import { set_user_Symptoms, set_diagnosis_time, unset_user_symptoms } from "../features/SymptomSlice";
 import { ThemeProvider } from "styled-components";
 
 // images 
 import symbol from "../../images/stetoscope.png"
+
+// Setting
+import { PageSetup } from "../Setting";
 
 function Symptoms() {
   const { themeConfig } = useSelector((state) => state.themes)
@@ -38,12 +44,23 @@ function Symptoms() {
   const [test, setTest] = useState({});
   const [ready, setReady] = useState(false);
   const [load, setLoad] = useState("Load Symptoms");
-  const [text, setText] = useState("")
   const { area } = useParams();
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const ContainerHeight = useRef()
 
-  const arr = [];
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
+    PageSetup(ContainerHeight)
+  }, [])
+
+  useEffect(() => {
+    setTest(test_list[0]);
+  }, [list]);
+
 
   const removeDuplicate = (arr) => {
     let uniqueChars = [...new Set(arr)];
@@ -51,10 +68,8 @@ function Symptoms() {
   };
 
   useEffect(() => {
-    setTest(test_list[0]);
-  }, [list]);
+    const arr = [];
 
-  useEffect(() => {
     if (area) {
       const diseases = category[0][area].split(",");
 
@@ -65,6 +80,8 @@ function Symptoms() {
       });
     }
   }, [area]);
+
+
 
   const select = (e) => {
     const filtered = list.filter((symptom) => symptom !== e);
@@ -77,6 +94,7 @@ function Symptoms() {
       alert("No symptom has been selected.");
     } else {
       setLoad("Loading...");
+      e.target.disabled = true
       selected.map((item) =>
         setTest((prev) => ({
           ...prev,
@@ -84,8 +102,11 @@ function Symptoms() {
         }))
       );
 
+      dispatch(set_user_Symptoms(selected))
+
       setTimeout(() => {
         setLoad("Update Symptoms");
+        e.target.disabled = false
         setReady(true);
       }, 1000);
     }
@@ -98,6 +119,7 @@ function Symptoms() {
     setSelected([]);
     setReady(false);
     setLoad("Load Symptoms");
+    dispatch(unset_user_symptoms())
   };
 
   const sorted = (x) =>{
@@ -115,6 +137,8 @@ function Symptoms() {
       .then((data) => {
         const pred = sorted(data.prediction)
         dispatch(setDiagnosis(pred))
+        const timeOfDiagnosis = new Date()
+        dispatch(set_diagnosis_time(timeOfDiagnosis.toLocaleString()))
         navigate("/diagnosis", {replace: true})
       })
       .catch((err) => {
@@ -132,41 +156,45 @@ function Symptoms() {
   return (
     <>
     <ThemeProvider theme={themeConfig}>
-      <S.Container>
+      <S.Container ref={ContainerHeight}>
         <S.Wrapper>
           <S.Stetoscope src={symbol} />
           <S.Return to={"/select-category"} replace={true}>Go Back</S.Return>
           <S.Header>{area}</S.Header>
           <S.Statement>Click to select symptoms.</S.Statement>
-          <SymptomsArea>
-            {list &&
-              list.map((symptom, index) => {
-                const cleanedText = properText(symptom)
-                return (
-                  <SymptomsPills key={index} onClick={() => select(symptom)}>
-                    {cleanedText}
-                  </SymptomsPills>
-                );
-              })}
-          </SymptomsArea>
-          <SelectedArea>
-            <AreaSymptoms>
-              {selected &&
-                selected.map((selectedSymptom, index) => {
-                  const comma = index === 0 ? "" : ",";
-                  const selectedText = properText(selectedSymptom)
+          <SymptomsMask>
+            <SymptomsArea>
+              {list &&
+                list.map((symptom, index) => {
+                  const cleanedText = properText(symptom)
                   return (
-                    <SelectedPill key={index}>
-                      {comma} {selectedText}
-                    </SelectedPill>
+                    <SymptomsPills key={index} onClick={() => select(symptom)}>
+                      {cleanedText}
+                    </SymptomsPills>
                   );
                 })}
-            </AreaSymptoms>
-            <AreaRefresh>
-              <Refresh onClick={unLoadSymptoms} />
-            </AreaRefresh>
-          </SelectedArea>
-          <S.Button onClick={() => loadSymptoms(selected)}>
+            </SymptomsArea>
+          </SymptomsMask>
+          <SelectedMask>
+            <SelectedArea>
+              <AreaSymptoms>
+                {selected &&
+                  selected.map((selectedSymptom, index) => {
+                    const comma = index === 0 ? "" : ",";
+                    const selectedText = properText(selectedSymptom)
+                    return (
+                      <SelectedPill key={index}>
+                        {comma} {selectedText}
+                      </SelectedPill>
+                    );
+                  })}
+              </AreaSymptoms>
+              <AreaRefresh>
+                <Refresh onClick={unLoadSymptoms} />
+              </AreaRefresh>
+            </SelectedArea>
+          </SelectedMask>
+          <S.Button onClick={(e) => loadSymptoms(e)}>
             {load}
           </S.Button>
           <Diagnose ready={ready.toString()} onClick={fetchDiagnosis}>
@@ -174,6 +202,7 @@ function Symptoms() {
           </Diagnose>
         </S.Wrapper>
       </S.Container>
+      <S.PolicyTag><S.PolicyLink to="/policy-statement">&#169; 2023 Privacy Statement</S.PolicyLink></S.PolicyTag>
       </ThemeProvider>
     </>
   );

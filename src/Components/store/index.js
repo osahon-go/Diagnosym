@@ -7,6 +7,7 @@ import thunk from 'redux-thunk'
 import ResultReducer from '../features/ResultSlice'
 import UserReducer from "../features/UserSlice";
 import ThemeReducer from "../features/ThemeSlice"
+import SymptomReducer from "../features/SymptomSlice"
 
 const persistConfig = {
     key: 'root',
@@ -16,7 +17,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
     user: UserReducer,
     result: ResultReducer,
-    themes: ThemeReducer
+    themes: ThemeReducer,
+    user_symptoms: SymptomReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

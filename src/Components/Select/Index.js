@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from 'react-redux'
 
 // General Styling
@@ -17,19 +17,32 @@ import { ThemeProvider } from "styled-components";
 // images 
 import symbol from "../../images/stetoscope.png"
 
+// setting
+import { PageSetup } from "../Setting";
+
 function Start() {
   const { themeConfig } = useSelector((state) => state.themes)
+  const ContainerHeight = useRef()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(()=>{
+    PageSetup(ContainerHeight)
+  },[])
+
   return (
     <>
     <ThemeProvider theme={themeConfig}>
-      <S.Container>
+      <S.Container ref={ContainerHeight}>
         <S.Wrapper>
           <S.Stetoscope src={symbol} />
           <S.Return to={"/start"} replace={true}>Go Back</S.Return>
           <S.Header>Select Body Region</S.Header>
           <S.Statement>
             Please select the specific body part that is affected by the
-            symptom.
+            symptoms.
           </S.Statement>
           <ListUl>
             <ListLi>
@@ -57,7 +70,9 @@ function Start() {
                 Stomach and sides
                 </SubjectLink>
                 </LineSubject>
-              <LineBody></LineBody>
+              <LineBody>
+              Includes the abdomen area and the sides of the torso.
+              </LineBody>
             </ListLi>
             <ListLi>
               <LineSubject>
@@ -82,6 +97,7 @@ function Start() {
           </ListUl>
         </S.Wrapper>
       </S.Container>
+      <S.PolicyTag><S.PolicyLink to="/policy-statement">&#169; 2023 Privacy Statement</S.PolicyLink></S.PolicyTag>
       </ThemeProvider>
     </>
   );

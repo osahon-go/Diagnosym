@@ -2,14 +2,15 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 // General Styling
-import * as S from "../Style"
 import { ThemeProvider } from 'styled-components'
+
+// Styled components
+import * as S from '../Style'
 
 // Components
 import Navbar from '../Navbar/Index'
 import { Wrapper } from './LandingElements'
 import Slide from '../Slide.js/Index'
-import About from '../About/Index'
 
 function Landing() {
     const { themeConfig } = useSelector((state) => state.themes)
@@ -19,8 +20,9 @@ function Landing() {
     <Wrapper>
         <Navbar></Navbar>
         <Slide></Slide>
-        {/* <About></About> */}
+        
     </Wrapper>
+      <S.PolicyTag><S.PolicyLink to="/policy-statement">&#169; 2023 Privacy Statement</S.PolicyLink></S.PolicyTag>
     </ThemeProvider>
   </>
 }
