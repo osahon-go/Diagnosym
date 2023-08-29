@@ -127,8 +127,8 @@ function Symptoms() {
   }
 
   const fetchDiagnosis = () => {
-    fetch("http://localhost:8080/api/diagnose", {
-    // fetch("https://diagnoserve.onrender.com/api/diagnose", {
+    //fetch("http://localhost:8080/api/diagnose", {
+    fetch("https://diagnoserve.onrender.com/api/diagnose", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(test),

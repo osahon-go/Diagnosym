@@ -15,7 +15,7 @@ function Slide() {
           <S.Statement>
           Gone are the days of uncertainty and lengthy wait times for diagnoses. Diagnosym empowers individuals and healthcare professionals alike by offering an accessible and reliable tool for early detection and identification of various diseases. By analyzing an array of symptoms, our system work tirelessly to deliver prompt and precise results.
           </S.Statement>
-          <S.ButtonLink to={"/start"} replace={true}>Try now</S.ButtonLink>
+          <S.ButtonLink to={"/start"}>Try now</S.ButtonLink>
         </BgLeft>
         <BgRight>
           <SlideSvg src={svg} />
