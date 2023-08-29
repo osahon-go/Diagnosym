@@ -82,8 +82,8 @@ function Complaint() {
         };
         e.target.disabled = true;
         setAction("Processing...");
-        fetch("http://localhost:8080/api/findsymptoms", {
-          // fetch("https://diagnoserve.onrender.com/api/diagnose", {
+        // fetch("http://localhost:8080/api/findsymptoms", {
+        fetch("https://diagnoserve.onrender.com/api/diagnose", {
           method: "post",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(userComplaint),
@@ -166,8 +166,8 @@ function Complaint() {
 
   const fetchDiagnosis = () => {
     
-    fetch("http://localhost:8080/api/diagnose", {
-      // fetch("https://diagnoserve.onrender.com/api/diagnose", {
+    // fetch("http://localhost:8080/api/diagnose", {
+    fetch("https://diagnoserve.onrender.com/api/diagnose", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(test),
@@ -192,7 +192,8 @@ function Complaint() {
   };
 
   const getDescription = (symptom) => {
-    fetch("http://localhost:8080/api/describe", {
+    // fetch("http://localhost:8080/api/describe", {
+    fetch("https://diagnoserve.onrender.com/api/describe", {
       method: 'post',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(symptom)
@@ -216,7 +217,7 @@ function Complaint() {
               Go Back
             </S.Return>
             <S.Header>Describe your symptoms</S.Header>
-            <S.Statement>### You must include the body area </S.Statement>
+            <S.Statement>Separate each symptom description using <b>and</b>.</S.Statement>
             <Description
               placeholder="Type here..."
               onChange={(e) => setComplaint(e.target.value)}
