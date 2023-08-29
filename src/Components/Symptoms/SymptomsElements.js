@@ -2,6 +2,7 @@ import Styled from 'styled-components'
 import { BiRefresh } from 'react-icons/bi'
 import { Button } from '../Style'
 import * as T from "../Theme"
+import { Link } from 'react-router-dom'
 
 export const SymptomsMask = Styled.div`
     position: relative;
@@ -39,6 +40,12 @@ export const SymptomsPills = Styled.div`
 `
 export const SelectedMask = Styled(SymptomsMask)`
     margin-top: 10px;
+`
+
+export const LaunchNlp = Styled(Link)`
+    font-weight: bold;
+    text-decoration: none;
+    color: ${T.txt_header}
 `
 
 export const SelectedArea = Styled(SymptomsArea)`

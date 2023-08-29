@@ -10,11 +10,14 @@ import Select from "./Components/Select/Index";
 import Symptoms from "./Components/Symptoms/Index";
 import Result from "./Components/Result/Index";
 import Policy from "./Components/Policy/Index";
+import Complaint from "./Components/Complaint/Index";
+
 import { ThemeButton } from "./Components/Style";
 
 // actions
 import { darkMode, defaultMode } from "./Components/features/ThemeSlice";
 import { ThemeProvider } from "styled-components";
+import Option from "./Components/Option/Index";
 
 function App() {
   const { themeConfig } = useSelector((state) => state.themes)
@@ -37,6 +40,8 @@ function App() {
           <Route path="/necessary-details" element={<Info />} />
           <Route path="/select-category" element={<Select />} />
           <Route path="/select-category/:area" element={<Symptoms />} />
+          <Route path="/select-option" element={<Option />} />
+          <Route path="/describe-symptoms" element={<Complaint />} />
           <Route path="/diagnosis" element={<Result />} />
           <Route path="/policy-statement" element={<Policy />} />
         </Routes>

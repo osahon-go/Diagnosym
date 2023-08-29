@@ -23,7 +23,7 @@ import {
   Refresh,
   Diagnose,
   SymptomsMask,
-  SelectedMask,
+  SelectedMask
 } from "./SymptomsElements";
 
 // ResultSlice actions
@@ -72,7 +72,6 @@ function Symptoms() {
 
     if (area) {
       const diseases = category[0][area].split(",");
-
       diseases.map((disease) => {
         const symptomList = symptoms[0][disease].split(",");
         arr.push(...symptomList);
@@ -128,7 +127,8 @@ function Symptoms() {
   }
 
   const fetchDiagnosis = () => {
-    fetch("https://diagnoserve.onrender.com/api/diagnose", {
+    fetch("http://localhost:8080/api/diagnose", {
+    // fetch("https://diagnoserve.onrender.com/api/diagnose", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(test),
@@ -161,7 +161,9 @@ function Symptoms() {
           <S.Stetoscope src={symbol} />
           <S.Return to={"/select-category"} replace={true}>Go Back</S.Return>
           <S.Header>{area}</S.Header>
-          <S.Statement>Click to select symptoms.</S.Statement>
+          <S.Statement>
+          Click to select symptoms.
+          </S.Statement>
           <SymptomsMask>
             <SymptomsArea>
               {list &&

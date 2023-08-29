@@ -38,7 +38,7 @@ function Start() {
       <S.Container ref={ContainerHeight}>
         <S.Wrapper>
           <S.Stetoscope src={symbol} />
-          <S.Return to={"/start"} replace={true}>Go Back</S.Return>
+          <S.Return to={"/select-option"} replace={true}>Go Back</S.Return>
           <S.Header>Select Body Region</S.Header>
           <S.Statement>
             Please select the specific body part that is affected by the

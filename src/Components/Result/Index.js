@@ -5,7 +5,7 @@ import JsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
 // json
-import disease_dict from "../../dictionary.json";
+import disease_dict from "../../voting_dictionary.json";
 
 // General Styling
 import * as S from "../Style";

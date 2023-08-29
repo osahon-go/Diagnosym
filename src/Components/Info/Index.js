@@ -57,7 +57,7 @@ function Info() {
         location
       }
       dispatch(setUserDetails(values))
-      navigate("/select-category", {replace: true})
+      navigate("/select-option", {replace: true})
     }
   }
 

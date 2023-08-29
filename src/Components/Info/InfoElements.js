@@ -16,6 +16,7 @@ export const Form = Styled.form`
 export const InputLabel = Styled.label`
     font-family: 'Montserrat', sans-serif;
     margin: 10px 0;
+    color: ${props => props.theme.name === "light" ? T.txt_dark : T.txt_light};
 
     &:first-child {
         margin-top: 0;
