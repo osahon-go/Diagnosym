@@ -135,6 +135,7 @@ function Symptoms() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         const pred = sorted(data.prediction)
         dispatch(setDiagnosis(pred))
         const timeOfDiagnosis = new Date()

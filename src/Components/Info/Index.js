@@ -64,7 +64,7 @@ function Info() {
   const checkAge = (e) => {
     e.target.style.borderColor = ''
     if (e.target.value!== ""){
-      if (e.target.value < 7 || e.target.value > 120){
+      if (e.target.value < 7 || e.target.value > 120 || isNaN(+e.target.value)){
         setAge(null)
         e.target.style.borderColor = 'red'
       }else{
@@ -110,10 +110,10 @@ function Info() {
             <InputLabel htmlFor="age">What is your age?</InputLabel><br /> 
             <Input
               id="age"
-              type="number"
-              inputMode="numeric"
-              min={7}
-              max={120}
+              type="text"
+              // inputMode="numeric"
+              // min={7}
+              // max={120}
               onChange={checkAge}
             />
             <br />

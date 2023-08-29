@@ -82,8 +82,8 @@ function Complaint() {
         };
         e.target.disabled = true;
         setAction("Processing...");
-        // fetch("http://localhost:8080/api/findsymptoms", {
-        fetch("https://diagnoserve.onrender.com/api/diagnose", {
+        //fetch("http://localhost:8080/api/findsymptoms", {
+        fetch("https://diagnoserve.onrender.com/api/findsymptoms", {
           method: "post",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(userComplaint),
