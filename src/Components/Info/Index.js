@@ -47,8 +47,8 @@ function Info() {
   }
 
   const checkForm = () => {
-    if (name == null || age == null || location == null || gender === "What's your gender?"){
-      alert("All fields are mandatory!")
+    if (name == null || age == null || gender === "What's your gender?"){
+      alert("Fields marked (*) are mandatory!")
     }else{
       const values = {
         name, 
@@ -74,18 +74,32 @@ function Info() {
     }
   }
 
-  const checkPostcode = (e) => {
+  const checkName = (e) => {
     e.target.style.borderColor = ''
-    if (e.target.value !== ""){
-      if (postcodeValidator(e.target.value,'GB')){
-        setLocation(e.target.value)
-        e.target.style.borderColor = ''
-      }else{
-        setLocation(null)
+    if (e.target.value!== ""){
+      var text = e.target.value
+      if (!text.match(/^[A-Za-z]+$/)){
+        setName(null)
         e.target.style.borderColor = 'red'
+      }else{
+        setName(e.target.value)
+        e.target.style.borderColor = ''
       }
     }
   }
+
+  // const checkPostcode = (e) => {
+  //   e.target.style.borderColor = ''
+  //   if (e.target.value !== ""){
+  //     if (postcodeValidator(e.target.value,'GB')){
+  //       setLocation(e.target.value)
+  //       e.target.style.borderColor = ''
+  //     }else{
+  //       setLocation(null)
+  //       e.target.style.borderColor = 'red'
+  //     }
+  //   }
+  // }
 
   return (
     <>
@@ -100,14 +114,14 @@ function Info() {
           </S.Statement>
 
           <Form>
-            <InputLabel htmlFor="fullname">What's your fullname?</InputLabel><br />
+            <InputLabel htmlFor="fullname">What's your fullname? <span style={{color:'red'}}>*</span></InputLabel><br />
           <Input
               id="fullname"
               type="test"
-              onChange={(e) => setName(e.target.value)}
+              onChange={checkName}
             /><br />
 
-            <InputLabel htmlFor="age">What is your age?</InputLabel><br /> 
+            <InputLabel htmlFor="age">What is your age? <span style={{color:'red'}}>*</span></InputLabel><br /> 
             <Input
               id="age"
               type="text"
@@ -121,11 +135,11 @@ function Info() {
             <Input
               id="postcode"
               type="text"
-              onChange={checkPostcode}
+              onChange={(e)=>setLocation(e.target.value)}
             />
             <br />
 
-            <InputLabel htmlFor="gender">What is your gender?</InputLabel><br /> 
+            <InputLabel htmlFor="gender">What is your gender? <span style={{color:'red'}}>*</span></InputLabel><br /> 
             <Select id="gender" type="text" onChange={(e) => setGender(e.target.value)}>
               <option defaultValue="What's your gender?">
                 --
